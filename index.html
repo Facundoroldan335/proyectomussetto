@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KICKZONE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    bg: '#0a0a0a',
+                    fg: '#f5f5f0',
+                    muted: '#555',
+                    accent: '#CCFF00',
+                    card: '#111111',
+                    border: '#1e1e1e',
+                },
+                fontFamily: {
+                    display: ['"Bebas Neue"', 'sans-serif'],
+                    body: ['"Space Grotesk"', 'sans-serif'],
+                }
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <audio id="musica" loop>
+        <source src="Bersuit Vergarabat - La Soledad (Letra).mp4" type="audio/mp4">
+    </audio>
+    <button id="btn-musica">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
+    <div id="scroll-progress"></div>
+
+    <div id="preloader">
+        <div class="preloader-text">
+            <span>K</span><span>I</span><span>C</span><span>K</span><span>Z</span><span>O</span><span>N</span><span>E</span>
+        </div>
+        <div class="preloader-bar-track">
+            <div class="preloader-bar-fill"></div>
+        </div>
+        <div class="preloader-percent">0%</div>
+    </div>
+
+    <div id="cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <nav id="navbar">
+        <div class="nav-logo">KICK<span>ZONE</span></div>
+        <div class="nav-links">
+            <a href="#catalogo">Catálogo</a>
+            <a href="#destacado">Destacado</a>
+            <a href="#beneficios">Beneficios</a>
+        </div>
+        <button class="nav-cart" aria-label="Carrito de compras">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="nav-cart-count" id="cart-count">0</span>
+        </button>
+    </nav>
+
+    <main>
+        <section id="hero">
+            <canvas id="particles-canvas"></canvas>
+            <div class="hero-gradient-1"></div>
+            <div class="hero-gradient-2"></div>
+            <div class="hero-content">
+                <h1 class="hero-title" id="hero-title"></h1>
+                <div class="hero-line" id="hero-line"></div>
+                <p class="hero-sub" id="hero-sub">Rendimiento &nbsp;·&nbsp; Estilo &nbsp;·&nbsp; Potencia</p>
+                <a href="#catalogo" class="hero-cta" id="hero-cta">
+                    Ver colección <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="hero-year">2025</div>
+        </section>
+
+        <section id="marquee">
+            <div class="marquee-row marquee-left" id="marquee-row-1"></div>
+            <div class="marquee-row marquee-right" id="marquee-row-2"></div>
+        </section>
+
+        <section id="catalogo">
+            <div class="catalogo-header">
+                <div>
+                    <h2 class="catalogo-titulo">
+                        Catálogo
+                        <span class="accent-line"></span>
+                    </h2>
+                </div>
+                <span class="catalogo-count" id="productos-count">18 productos</span>
+            </div>
+            
+            <!-- BUSCADOR -->
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="campoBusqueda" class="search-input" placeholder="Buscar botines, marcas o tipos...">
+                <button id="botonBuscar" class="search-btn">Buscar</button>
+            </div>
+            <div id="resultados"></div>
+
+            <div id="filtros"></div>
+            <div id="productos-grid"></div>
+        </section>
+
+        <section id="destacado">
+            <video autoplay muted loop playsinline class="video-fondo">
+                <source src="Nike Mercurial Superfly 11 Elite SG-PRO – First Look & Unboxing.mp4" type="video/mp4">
+            </video>
+            <div class="destacado-overlay"></div>
+            <div class="destacado-content">
+                <p class="destacado-tag">Producto destacado</p>
+                <h2 class="destacado-nombre">MERCURIAL</h2>
+                <p class="destacado-modelo">SUPERFLY IX ELITE</p>
+                <p class="destacado-desc">
+                    La velocidad en su forma más pura. Cada detalle está diseñado para que
+                    seas imparable en la cancha. Tecnología Flyknit de segunda generación
+                    con placa de carbono reactiva.
+                </p>
+                <div class="destacado-footer">
+                    <span class="destacado-precio">$285.000</span>
+                    <button class="destacado-btn" onclick="agregarAlCarrito('Mercurial Superfly IX')">
+                        Comprar ahora
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="beneficios">
+            <div class="beneficios-grid">
+                <div class="beneficio-card" data-reveal>
+                    <div class="beneficio-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3 class="beneficio-titulo">Envío gratis</h3>
+                    <p class="beneficio-desc">En compras mayores a $150.000 a todo el país. Entrega en 24-48hs.</p>
+                </div>
+                <div class="beneficio-card" data-reveal>
+                    <div class="beneficio-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="beneficio-titulo">Garantía oficial</h3>
+                    <p class="beneficio-desc">Todos nuestros productos cuentan con garantía oficial de fábrica.</p>
+                </div>
+                <div class="beneficio-card" data-reveal>
+                    <div class="beneficio-icon"><i class="fa-solid fa-lock"></i></div>
+                    <h3 class="beneficio-titulo">Pago seguro</h3>
+                    <p class="beneficio-desc">Transacciones cifradas. Aceptamos todas las tarjetas y transferencias.</p>
+                </div>
+                <div class="beneficio-card" data-reveal>
+                    <div class="beneficio-icon"><i class="fa-solid fa-rotate-left"></i></div>
+                    <h3 class="beneficio-titulo">Devoluciones</h3>
+                    <p class="beneficio-desc">30 días para cambiar o devolver sin preguntas. Sin complicaciones.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+<section id="juego-pokemon">
+    <h2>¿Quién es este Pokémon?</h2>
+    <p id="mensaje-pokemon">Adiviná el Pokémon</p>
+    <div id="pokemon-imagen"><p>Cargando Pokémon...</p></div>
+    <div id="opciones-pokemon"></div>
+    <button id="nuevo-pokemon">Otro Pokémon</button>
+</section>
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="nav-logo">KICK<span>ZONE</span></div>
+                <p>Tu tienda de botines de fútbol. Las mejores marcas, los mejores precios, la mejor experiencia.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Marcas</h4>
+                <a href="#">Nike</a><a href="#">Adidas</a><a href="#">Puma</a>
+                <a href="#">New Balance</a>
+            </div>
+            <div class="footer-col">
+                <h4>Tienda</h4>
+                <a href="#">Novedades</a><a href="#">Más vendidos</a>
+                <a href="#">Ofertas</a><a href="#">Todos los botines</a>
+            </div>
+            <div class="footer-col">
+                <h4>Seguinos</h4>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>2025 KICKZONE. Todos los derechos reservados.</p>
+            <p>Hecho con pasión por el fútbol.</p>
+        </div>
+    </footer>
+
+    <div id="modal-overlay" role="dialog" aria-modal="true" aria-label="Detalle de producto">
+        <div id="modal">
+            <button class="modal-close" id="modal-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-img">
+                <img id="modal-img" src="" alt="">
+            </div>
+            <div class="modal-info">
+                <p class="modal-marca" id="modal-marca"></p>
+                <h3 class="modal-nombre" id="modal-nombre"></h3>
+                <p class="modal-tipo" id="modal-tipo"></p>
+                <p class="modal-desc" id="modal-desc"></p>
+                <p class="modal-precio" id="modal-precio"></p>
+                <p class="modal-tallas-label">Seleccioná tu tallo</p>
+                <div class="modal-tallas" id="modal-tallas"></div>
+                <button class="modal-add-btn" id="modal-add-btn">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">
+        <i class="fa-solid fa-check"></i>
+        <span id="toast-text">Producto agregado al carrito</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
